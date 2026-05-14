@@ -73,15 +73,18 @@ function OverviewSection() {
   </div>
 
   <div className="nft-grid">
-    <img src="/Images/Drawer/Web3Fund S1-20K.png" alt="NFT 1" className="nft-image" />
-    <img src="/Images/Drawer/Cards-1.png" alt="NFT 2" className="nft-image" />
-    <img src="/Images/Drawer/Cards.png" alt="NFT 3" className="nft-image" />
-  </div>
-
-  <div className="supply">
-    <p>78861</p>
-    <p>78861</p>
-    <p>78861</p>
+    <div className="nft-item">
+      <img src="/Images/Drawer/Web3Fund S1-20K.png" alt="NFT 1" className="nft-image" />
+      <p className="supply-text">78861</p>
+    </div>
+    <div className="nft-item">
+      <img src="/Images/Drawer/Cards-1.png" alt="NFT 2" className="nft-image" />
+      <p className="supply-text">78861</p>
+    </div>
+    <div className="nft-item">
+      <img src="/Images/Drawer/Cards.png" alt="NFT 3" className="nft-image" />
+      <p className="supply-text">78861</p>
+    </div>
   </div>
 </article>
     </section>
