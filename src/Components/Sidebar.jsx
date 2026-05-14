@@ -64,8 +64,14 @@ function ResponsiveDrawer(props) {
           display:        'flex',
           alignItems:     'center',
           // When collapsed: center the arrow. When expanded: logo left, arrow right.
-          justifyContent: { xs: 'space-between', sm: desktopCollapsed ? 'center' : 'space-between' },
-          px:             { xs: '10px', sm: desktopCollapsed ? 0 : '10px' },
+          justifyContent: 'space-between',
+          '@media (min-width: 1024px)': {
+            justifyContent: desktopCollapsed ? 'center' : 'space-between',
+          },
+          px: '10px',
+          '@media (min-width: 1024px)': {
+            px: desktopCollapsed ? 0 : '10px',
+          },
           pt:             '10px',
           pb:             1,
           gap:            1,
@@ -77,7 +83,10 @@ function ResponsiveDrawer(props) {
           src="/Images/Drawer/logo.png"
           alt="Web3Fund logo"
           sx={{
-            display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
+            display: 'block',
+            '@media (min-width: 1024px)': {
+              display: desktopCollapsed ? 'none' : 'block',
+            },
             width:   '163px',
             height:  'auto',
             padding: '10px 16px',
@@ -90,7 +99,10 @@ function ResponsiveDrawer(props) {
           aria-label={desktopCollapsed ? 'expand sidebar' : 'collapse sidebar'}
           size="small"
           sx={{
-            display:   { xs: 'none', sm: 'flex' },
+            display: 'none',
+            '@media (min-width: 1024px)': {
+              display: 'flex',
+            },
             '&:hover': { backgroundColor: '#f5f5f5' },
           }}
         >
@@ -117,7 +129,10 @@ function ResponsiveDrawer(props) {
           overflowY: 'auto',
           overflowX: 'hidden',
           // Hide menu content on desktop when collapsed
-          display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
+          display: 'block',
+          '@media (min-width: 1024px)': {
+            display: desktopCollapsed ? 'none' : 'block',
+          },
         }}
       >
         {/* GENERAL MENU label */}
@@ -254,7 +269,10 @@ function ResponsiveDrawer(props) {
           py:         1.5,
           borderTop:  '1px solid #eceff5',
           // Hide logout section on desktop when collapsed
-          display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
+          display: 'block',
+          '@media (min-width: 1024px)': {
+            display: desktopCollapsed ? 'none' : 'block',
+          },
         }}
       >
         <ListItemButton
@@ -305,13 +323,11 @@ function ResponsiveDrawer(props) {
       <AppBar
         position="fixed"
         sx={{
-          width: {
-            xs: '100%',
-            sm: `calc(100% - ${collapsedDrawerWidth}px)`,
-          },
-          ml: {
-            xs: 0,
-            sm: `${collapsedDrawerWidth}px`,
+          width: '100%',
+          ml: 0,
+          '@media (min-width: 1024px)': {
+            width: desktopCollapsed ? `calc(100% - ${collapsedDrawerWidth}px)` : `calc(100% - ${drawerWidth}px)`,
+            ml: desktopCollapsed ? `${collapsedDrawerWidth}px` : `${drawerWidth}px`,
           },
           backgroundColor: '#ffffff',
           color:           '#242838',
@@ -348,7 +364,8 @@ function ResponsiveDrawer(props) {
               edge="start"
               onClick={handleDrawerToggle}
               sx={{
-                display:    { xs: 'flex', sm: 'none' },
+                display: 'flex',
+                '@media (min-width: 1024px)': { display: 'none' },
                 flexShrink: 0,
                 p:          0.5,
               }}
@@ -454,8 +471,11 @@ function ResponsiveDrawer(props) {
       <Box
         component="nav"
         sx={{
-          width:      { sm: collapsedDrawerWidth },
-          flexShrink: { sm: 0 },
+          width: 0,
+          '@media (min-width: 1024px)': {
+            width: desktopCollapsed ? collapsedDrawerWidth : drawerWidth,
+          },
+          flexShrink: 0,
           transition: 'width 0.25s ease',
         }}
         aria-label="sidebar navigation"
@@ -468,7 +488,8 @@ function ResponsiveDrawer(props) {
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: 'block',
+            '@media (min-width: 1024px)': { display: 'none' },
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width:     drawerWidth,
@@ -491,7 +512,8 @@ function ResponsiveDrawer(props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
+            display: 'none',
+            '@media (min-width: 1024px)': { display: 'block' },
             '& .MuiDrawer-paper': {
               boxSizing:  'border-box',
               width:      desktopCollapsed ? collapsedDrawerWidth : drawerWidth,

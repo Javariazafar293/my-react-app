@@ -294,9 +294,13 @@
 }
 
 .dashboard-content-shell {
-  margin-left: 52px;
+  margin-left: 264px;
   padding-top: 74px;
   transition: margin-left 0.25s ease;
+}
+
+.dashboard-content-shell.collapsed {
+  margin-left: 52px;
 }
 
 .dashboard-content-inner {
@@ -910,9 +914,15 @@
   }
 }
 
+@media (max-width: 1023px) {
+  .dashboard-content-shell,
+  .dashboard-content-shell.collapsed {
+    margin-left: 0;
+  }
+}
+
 @media (max-width: 599px) {
   .dashboard-content-shell {
-    margin-left: 0;
     padding-top: 74px;
   }
 
