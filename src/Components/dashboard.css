@@ -304,7 +304,7 @@
 }
 
 .dashboard-content-inner {
-  max-width: calc(1440px - 52px);
+  max-width: calc(2600px - 52px);
   margin: 0 auto;
   padding: 14px;
   display: flex;
