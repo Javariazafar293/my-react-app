@@ -394,6 +394,10 @@ function ResponsiveDrawer(props) {
                   overflow:     'hidden',
                   textOverflow: 'ellipsis',
                   display:      'block',
+                  '@media (max-width: 425px)': {
+                    fontSize: '11px',
+                    whiteSpace: 'normal',
+                  },
                 }}
               >
                 Welcome Back Jake! 👋
