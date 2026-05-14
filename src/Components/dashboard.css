@@ -1,15 +1,16 @@
 /* =========================
    ANALYTICS SECTION
 ========================= */
-/* *{
-  max-width: 1180px;
-} */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 .analytics-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 18px;
   width: 100%;
 }
+
 .section-card {
   background: #ffffff;
   border: 1px solid #ececec;
@@ -17,6 +18,7 @@
   padding: 24px;
   box-sizing: border-box;
 }
+
 /* =========================
    CARD HEADER
 ========================= */
@@ -281,83 +283,56 @@
 }
 
 /* =========================
-   RESPONSIVE
+   DASHBOARD LAYOUT
 ========================= */
-
-@media (max-width: 991px) {
-  .analytics-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .section-card {
-    padding: 20px;
-  }
-
-  .analytics-card-head {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .analytics-footer {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .section-title {
-    font-size: 16px;
-  }
-
-  .growth-svg {
-    height: 190px;
-  }
-
-  .chart-y-axis,
-  .growth-y-axis {
-    height: 190px;
-  }
-}
-
 
 .dashboard-page {
   min-height: 100vh;
-  background: #FFFFFF;
+  background: #ffffff;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .dashboard-content-shell {
-  margin-left: 264px;
+  margin-left: 52px;
   padding-top: 74px;
   transition: margin-left 0.25s ease;
 }
 
-.dashboard-content-shell.collapsed {
-  margin-left: 88px;
-}
-
 .dashboard-content-inner {
-  max-width: calc(1440px - 264px);
+  max-width: calc(1440px - 52px);
   margin: 0 auto;
   padding: 14px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 14px;
+  width: 100%;
 }
-
+.dashboard-content-inner > * {
+  min-width: 0;
+}
 
 .overview-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 14px;
+  width: 100%;
+  min-width: 0;
 }
-  /* Your Total Balanace */
+.overview-grid > * {
+  min-width: 0;
+}
 
-    .section-card1 {
-      background: #FFFFFF;
-      border: 1px solid #F0F1F3;
-      border-radius: 20px;
-      padding: 28px 24px ;
-    }
+/* =========================
+   YOUR TOTAL BALANCE
+========================= */
+
+.section-card1 {
+  background: #ffffff;
+  border: 1px solid #f0f1f3;
+  border-radius: 20px;
+  padding: 28px 24px;
+}
 
 .section-label {
   color: #667085;
@@ -373,7 +348,7 @@
   font-family: Montserrat;
   font-weight: 500;
   line-height: 130%;
-  color: #1D1F2C;
+  color: #1d1f2c;
 }
 
 .balance-change {
@@ -382,8 +357,9 @@
   font-family: Montserrat;
   font-weight: 600;
   line-height: 160%;
-  color: #00C24ED6;
+  color: #00c24ed6;
 }
+
 .section-muted {
   padding-top: 16px;
   font-size: 16px;
@@ -401,7 +377,7 @@
 }
 
 .btn {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .btn-outline {
@@ -410,12 +386,12 @@
   font-family: Montserrat;
   font-weight: 600;
   line-height: 130%;
-  color: #FFFFFF;
- background: #0F68FF;
- border: 1px solid #0F68FF;
- border-radius: 8px;
- display: flex;
- gap: 8px;
+  color: #ffffff;
+  background: #0f68ff;
+  border: 1px solid #0f68ff;
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 .btn-primary {
@@ -424,17 +400,17 @@
   font-family: Montserrat;
   font-weight: 600;
   line-height: 130%;
-  color: #0F68FF;
- background: #FFFFFF;
- border: 1px solid #0F68FF;
- border-radius: 8px;
- display: flex;
- gap: 8px;
+  color: #0f68ff;
+  background: #ffffff;
+  border: 1px solid #0f68ff;
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 .balance-note {
   margin-top: 24px;
-  background: #F3AE451F;
+  background: #f3ae451f;
   border-radius: 8px;
   display: flex;
   gap: 12px;
@@ -446,7 +422,7 @@
   font-family: Montserrat;
   font-weight: 400;
   line-height: 160%;
-  color: #F3AE45;
+  color: #f3ae45;
 }
 
 .balance-icon {
@@ -454,24 +430,30 @@
   height: 24px;
 }
 
-/* My Web3Fund NFTs */
+/* =========================
+   MY WEB3FUND NFTs
+========================= */
+
 .section-card {
-  background: #FFFFFF;
-      border: 1px solid #F0F1F3;
-      border-radius: 20px;
-      padding: 28px 24px ;
-      }
-      .section-header-row {
-        display: flex;
-        justify-content: space-between;
-        }
+  background: #ffffff;
+  border: 1px solid #f0f1f3;
+  border-radius: 20px;
+  padding: 28px 24px;
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+}
+
 .section-title {
   font-size: 20px;
   font-family: Montserrat;
   font-weight: 600;
   line-height: 130%;
-  color: #1D1F2C;
+  color: #1d1f2c;
 }
+
 .section-muted1 {
   padding-top: 4px;
   font-size: 16px;
@@ -487,62 +469,89 @@
   font-family: Montserrat;
   font-weight: 600;
   line-height: 130%;
-  color: #FFFFFF;
- background: #0F68FF;
- border: 1px solid #0F68FF;
- border-radius: 8px;
- display: flex;
- gap: 8px;
- align-items: center;
+  color: #ffffff;
+  background: #0f68ff;
+  border: 1px solid #0f68ff;
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
+
 .nft-grid {
-padding-top: 22px; 
- display: flex;
-  gap: 18px;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-top: 22px;
+  width: 100%;
+}
+
+.nft-image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.nft-image:hover {
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
 }
 
 .nft-tile {
-  border: 2px solid #004BD9;
+  border: 2px solid #004bd9;
   border-radius: 10px;
-  background: #E9F0FF;
+  background: #e9f0ff;
   text-align: center;
 }
+
 .nft-brand {
   padding: 62px 15px 30px 15px;
   font-size: 29.33px;
   font-family: Montserrat;
   font-weight: 700;
   line-height: 100%;
-  color: #0555EC;
-
-
+  color: #0555ec;
 }
+
 .nft-code {
   padding-bottom: 28px;
   font-size: 16.07px;
   font-family: Montserrat;
   font-weight: 600;
   line-height: 100%;
-  color: #2B74FF;
+  color: #2b74ff;
 }
+
 .supply {
-  padding-top: 7px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 8px;
   text-align: center;
   align-items: center;
-  font-size: 14px;
-  font-family: Montserrat;
-  font-weight: 600;
-  line-height: 100%;
-  color: #000000;
 }
+
+.supply p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #242838;
+  margin: 0;
+}
+
+/* =========================
+   ANALYTICS GRID
+========================= */
 
 .analytics-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
+  width: 100%;
+  min-width: 0;
+}
+.analytics-grid > * {
+  min-width: 0;
 }
 
 .analytics-card {
@@ -690,27 +699,40 @@ padding-top: 22px;
   font-weight: 700;
 }
 
+/* =========================
+   TABLE SECTION
+========================= */
+
 .table-section {
   padding-bottom: 10px;
+}
+
+.section-header-row1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;         /* ← title & toolbar stack on narrow screens */
 }
 
 .table-tools {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .table-tool-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   border: 1px solid #e0e6f3;
   border-radius: 8px;
   background: #fff;
   color: #7e89a2;
   padding: 7px 10px;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .table-view-switch {
@@ -726,6 +748,7 @@ padding-top: 22px;
   color: #7e89a2;
   padding: 7px 10px;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .table-view-switch button.active {
@@ -733,20 +756,33 @@ padding-top: 22px;
   color: #fff;
 }
 
+/* KEY FIX: horizontal scroll wrapper */
 .table-wrap {
-  margin-top: 10px;
+  margin-top: 16px;
+  width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.section-header-row1 {
-  display: flex;
-  justify-content: space-between;
-  }
+.table-wrap::-webkit-scrollbar {
+  height: 4px;
+}
 
+.table-wrap::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.table-wrap::-webkit-scrollbar-thumb {
+  background: #d0d5e0;
+  border-radius: 4px;
+}
+
+/* KEY FIX: min-width keeps columns readable; table never shrinks below this */
 .history-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 780px;
+  min-width: 700px;
 }
 
 .history-table th {
@@ -754,21 +790,23 @@ padding-top: 22px;
   font-family: Montserrat;
   font-weight: 400;
   line-height: 160%;
-  border-bottom: 1px solid #F0F1F3;
-  background-color: #F0F1F3;
+  border-bottom: 1px solid #f0f1f3;
+  background-color: #f0f1f3;
   padding: 16px 24px;
   text-align: left;
   color: #667085;
+  white-space: nowrap;
 }
+
 .history-table td {
   font-size: 14px;
   font-family: Montserrat;
   font-weight: 400;
   line-height: 160%;
-  border-bottom: 1px solid #F0F1F3;
-  padding: 31px 24px;
+  border-bottom: 1px solid #f0f1f3;
+  padding: 20px 24px;
   text-align: left;
-  color: #1D1F2C;
+  color: #1d1f2c;
   white-space: nowrap;
 }
 
@@ -777,9 +815,8 @@ padding-top: 22px;
   font-family: Montserrat;
   font-weight: 500;
   line-height: 160%;
-  padding: 31px 24px;
   text-align: left;
-  color: #1D1F2C;
+  color: #1d1f2c;
   text-decoration: underline;
 }
 
@@ -788,22 +825,19 @@ padding-top: 22px;
   font-family: Montserrat;
   font-weight: 500;
   line-height: 160%;
-  padding: 31px 24px;
-  text-align: center;
   border-radius: 8px;
   padding: 6px 12px;
- 
+  display: inline-block;
 }
 
 .status-chip.on {
-background-color: #4FBE881F;
-  color: #4FBE88;
+  background-color: #4fbe881f;
+  color: #4fbe88;
 }
 
 .status-chip.off {
-
-background-color: #FD000033; 
-color: #F24444;
+  background-color: #fd000033;
+  color: #f24444;
 }
 
 .table-footer {
@@ -811,8 +845,7 @@ color: #F24444;
   font-family: Montserrat;
   font-weight: 500;
   line-height: 160%;
-  padding: 16px 24px;
-  text-align: center;
+  padding: 16px 4px 0;
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -825,6 +858,7 @@ color: #F24444;
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .pager-btn {
@@ -832,31 +866,27 @@ color: #F24444;
   font-family: Montserrat;
   font-weight: 500;
   line-height: 130%;
-  padding: 6px;
-  text-align: center;
-
   width: 32px;
   height: 32px;
-  border: 1px solid #F0F1F3;
+  border: 1px solid #f0f1f3;
   border-radius: 6px;
-  background: #FFFFFF;
+  background: #ffffff;
   color: #7e89a2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .pager-btn.active {
-  background: #0F68FF;
-  color: #FFFFFF;
+  background: #0f68ff;
+  color: #ffffff;
   border-color: #0f68ff;
 }
 
-/* .pager-dots {
-  width: 30px;
-  background: #0F68FF;
-  color: #FFFFFF;
-  border-color: #0f68ff;
-  text-align: center;
-  color: #a4adbf;
-} */
+/* =========================
+   RESPONSIVE BREAKPOINTS
+========================= */
 
 @media (max-width: 1199px) {
   .overview-grid {
@@ -868,7 +898,19 @@ color: #F24444;
   }
 }
 
-@media (max-width: 899px) {
+@media (max-width: 991px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  .nft-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .supply {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 599px) {
   .dashboard-content-shell {
     margin-left: 0;
     padding-top: 74px;
@@ -887,37 +929,103 @@ color: #F24444;
   .analytics-footer {
     grid-template-columns: 1fr;
   }
-}
-/* Cardsssssssssssss */
-
-.nft-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  .supply {
+    grid-template-columns: 1fr;
+  }
 }
 
-.nft-image {
-  width: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  cursor: pointer;
+@media (max-width: 768px) {
+  .section-card {
+    padding: 20px;
+  }
+
+  .analytics-card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .analytics-footer {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .growth-svg {
+    height: 190px;
+  }
+
+  .chart-y-axis,
+  .growth-y-axis {
+    height: 190px;
+  }
+
+  /* Table header stacks on small screens */
+  .section-header-row1 {
+    gap: 12px;
+  }
+
+  .history-table th,
+  .history-table td {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .table-footer {
+    font-size: 13px;
+    padding-top: 12px;
+  }
+
+  .btn-outline,
+  .btn-primary {
+    padding: 12px 24px;
+    font-size: 13px;
+  }
 }
 
-.nft-image:hover {
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
-}
-.supply {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* matches nft-grid exactly */
-  gap: 16px;                              /* same gap as nft-grid */
-  margin-top: 8px;
-  text-align: center;                     /* centers each number under its card */
-}
+@media (max-width: 480px) {
+  .section-card {
+    padding: 18px 14px;
+  }
 
-.supply p {
-  font-size: 14px;
-  font-weight: 600;
-  color: #242838;
-  margin: 0;
+  .section-card1 {
+    padding: 20px 16px;
+  }
+
+  .balance-value {
+    font-size: 26px;
+  }
+
+  .balance-actions {
+    flex-direction: column;
+  }
+
+  .btn-outline,
+  .btn-primary {
+    padding: 13px 20px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nft-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .supply {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hide text labels in toolbar, keep icons only */
+  .table-tool-btn .btn-label {
+    display: none;
+  }
+
+  .pager-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
 }

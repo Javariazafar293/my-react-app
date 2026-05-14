@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 const nftData = [
-  { id: 1, nft: "M1-24 20K", nftId: 1, date: "01/01/2024", amount: "$20,000", value: "$30,000", status: "Active", tx: "0x0....03ba22" },
+  { id: 1, nft: "M1-24 20K", nftId: 1, date: "01/01/2024", amount: "$20,000", value: "$30,000", status: "Active",   tx: "0x0....03ba22" },
   { id: 2, nft: "M3-24 20K", nftId: 1, date: "02/03/2024", amount: "$20,000", value: "$30,000", status: "Inactive", tx: "0x0....03ba22" },
-  { id: 3, nft: "M3-24 20K", nftId: 1, date: "02/03/2024", amount: "$20,000", value: "$30,000", status: "Active", tx: "0x0....03ba22" },
-  { id: 4, nft: "M3-24 20K", nftId: 1, date: "02/03/2024", amount: "$20,000", value: "$30,000", status: "Active", tx: "0x0....03ba22" },
+  { id: 3, nft: "M3-24 20K", nftId: 1, date: "02/03/2024", amount: "$20,000", value: "$30,000", status: "Active",   tx: "0x0....03ba22" },
+  { id: 4, nft: "M3-24 20K", nftId: 1, date: "02/03/2024", amount: "$20,000", value: "$30,000", status: "Active",   tx: "0x0....03ba22" },
 ];
 
 const headers = ["#", "NFT", "NFT ID", "Purchase Date", "Amount", "NFT Value", "Status", "Transaction #"];
@@ -17,43 +17,65 @@ export default function NFTHistoryTable() {
 
   return (
     <section className="section-card table-section">
+
+      {/* ── Header row: title + toolbar ── */}
       <div className="section-header-row1">
         <h2 className="section-title">Web3Fund NFT History</h2>
+
         <div className="table-tools">
-        <button type="button" className="table-tool-btn">
-        <img src="/Images/Drawer/sort.svg" alt="filter icon" style={{ width: '20px', height: '20px' }} />
+          <button type="button" className="table-tool-btn">
+            <img
+              src="/Images/Drawer/sort.svg"
+              alt=""
+              style={{ width: "20px", height: "20px" }}
+            />
+            <span className="btn-label">Filter</span>
+          </button>
 
-  Filter
-</button>
-
-<button type="button" className="table-tool-btn">
-<img src="/Images/Drawer/calendar-2.svg" alt="filter icon" style={{ width: '20px', height: '20px' }} />
-
-This Week
-<img src="/Images/Drawer/arrow-down11.svg" alt="filter icon" style={{ width: '12px', height: '12px' }} />
-
-</button>
+          <button type="button" className="table-tool-btn">
+            <img
+              src="/Images/Drawer/calendar-2.svg"
+              alt=""
+              style={{ width: "20px", height: "20px" }}
+            />
+            <span className="btn-label">This Week</span>
+            <img
+              src="/Images/Drawer/arrow-down11.svg"
+              alt=""
+              style={{ width: "12px", height: "12px" }}
+            />
+          </button>
 
           <div className="table-view-switch">
             <button
+              type="button"
               onClick={() => setViewMode("list")}
               className={viewMode === "list" ? "active" : ""}
-              type="button"
+              aria-label="List view"
             >
-              <img src="/Images/Drawer/row-vertical.svg" alt="filter icon" style={{ width: '20px', height: '20px' }} />
-
+              <img
+                src="/Images/Drawer/row-vertical.svg"
+                alt=""
+                style={{ width: "20px", height: "20px" }}
+              />
             </button>
             <button
+              type="button"
               onClick={() => setViewMode("grid")}
               className={viewMode === "grid" ? "active" : ""}
-              type="button"
+              aria-label="Grid view"
             >
-<img src="/Images/Drawer/element-3.svg" alt="filter icon" style={{ width: '20px', height: '20px' }} />
+              <img
+                src="/Images/Drawer/element-3.svg"
+                alt=""
+                style={{ width: "20px", height: "20px" }}
+              />
             </button>
           </div>
         </div>
       </div>
 
+      {/* ── Table: scrollable wrapper keeps layout intact on small screens ── */}
       <div className="table-wrap">
         <table className="history-table">
           <thead>
@@ -84,34 +106,44 @@ This Week
         </table>
       </div>
 
+      {/* ── Footer: label + pager ── */}
       <div className="table-footer">
         <span>Showing 4 items per page</span>
+
         <div className="pager">
           <button
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-            className="pager-btn"
             type="button"
+            className="pager-btn"
+            aria-label="Previous page"
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
           >
             ‹
           </button>
+
           {pages.map((page, i) =>
             page === "..." ? (
-              <span key={i} className="pager-btn">...</span>
+              <span key={i} className="pager-btn" aria-hidden="true">
+                ...
+              </span>
             ) : (
               <button
                 key={page}
+                type="button"
                 onClick={() => setCurrentPage(page)}
                 className={`pager-btn ${currentPage === page ? "active" : ""}`}
-                type="button"
+                aria-label={`Page ${page}`}
+                aria-current={currentPage === page ? "page" : undefined}
               >
                 {page}
               </button>
             )
           )}
+
           <button
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-            className="pager-btn"
             type="button"
+            className="pager-btn"
+            aria-label="Next page"
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
           >
             ›
           </button>

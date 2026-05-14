@@ -14,7 +14,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 
 const drawerWidth          = 264;
-const collapsedDrawerWidth = 88;
+const collapsedDrawerWidth = 52; // ← tightened: just enough for the arrow icon
 
 const menuItems = [
   { text: 'Dashboard',          icon: '/Images/Drawer/1.svg' },
@@ -57,42 +57,47 @@ function ResponsiveDrawer(props) {
         overflow:      'hidden',
       }}
     >
-
-      {/* ── ① Logo + Toggle arrow ── */}
+      {/* ── ① Logo area + arrow toggle ── */}
       <Box
         sx={{
           flexShrink:     0,
           display:        'flex',
           alignItems:     'center',
-          justifyContent: desktopCollapsed ? 'center' : 'space-between',
-          px:             desktopCollapsed ? 0 : '10px',
+          // When collapsed: center the arrow. When expanded: logo left, arrow right.
+          justifyContent: { xs: 'space-between', sm: desktopCollapsed ? 'center' : 'space-between' },
+          px:             { xs: '10px', sm: desktopCollapsed ? 0 : '10px' },
           pt:             '10px',
           pb:             1,
           gap:            1,
         }}
       >
-        {/* Logo — hidden when sidebar is collapsed */}
-        <img
+        {/* Logo — always visible on mobile, hidden on desktop when collapsed */}
+        <Box
+          component="img"
           src="/Images/Drawer/logo.png"
           alt="Web3Fund logo"
-          style={{
-            width:      '163px',
-            height:     'auto',
-            padding:    '10px 16px',
-            transition: 'all 0.25s ease',
-            display:    desktopCollapsed ? 'none' : 'block',
+          sx={{
+            display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
+            width:   '163px',
+            height:  'auto',
+            padding: '10px 16px',
           }}
         />
 
-        {/* Arrow toggle — always visible */}
+        {/* Arrow toggle — always visible on desktop, hidden on mobile */}
         <IconButton
           onClick={onDesktopToggle}
           aria-label={desktopCollapsed ? 'expand sidebar' : 'collapse sidebar'}
           size="small"
-          sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}
+          sx={{
+            display:   { xs: 'none', sm: 'flex' },
+            '&:hover': { backgroundColor: '#f5f5f5' },
+          }}
         >
           <img
-            src={desktopCollapsed ? '/Images/Drawer/arrow-right.svg' : '/Images/Drawer/arrow-left.svg'}
+            src={desktopCollapsed
+              ? '/Images/Drawer/arrow-right.svg'
+              : '/Images/Drawer/arrow-left.svg'}
             alt={desktopCollapsed ? 'expand' : 'collapse'}
             width={30}
             height={30}
@@ -100,16 +105,23 @@ function ResponsiveDrawer(props) {
         </IconButton>
       </Box>
 
-      {/* ── ② Scrollable menu area ── */}
-      <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
-
+      {/* ── ② Menu area — entirely hidden when collapsed ── */}
+      {/*
+        KEY CHANGE: when desktopCollapsed is true on desktop (sm+),
+        we hide the entire scrollable menu section so only the arrow shows.
+        On mobile the drawer is always full-width so we always show the menu.
+      */}
+      <Box
+        sx={{
+          flex:      1,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          // Hide menu content on desktop when collapsed
+          display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
+        }}
+      >
         {/* GENERAL MENU label */}
-        <List
-          sx={{
-            display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
-            pb: 0,
-          }}
-        >
+        <List sx={{ pb: 0 }}>
           <ListItem
             sx={{
               color:         '#667085',
@@ -126,7 +138,6 @@ function ResponsiveDrawer(props) {
           </ListItem>
         </List>
 
-        {/* General menu items */}
         <List sx={{ pt: 0, px: 1 }}>
           {menuItems.map(({ text, icon }) => (
             <ListItem key={text} disablePadding sx={{ mb: 0.5 }}>
@@ -138,13 +149,10 @@ function ResponsiveDrawer(props) {
                   fontWeight:      activeItem === text ? 600 : 400,
                   '&:hover':       { backgroundColor: '#f5f5f5' },
                   backgroundColor: 'transparent',
-                  justifyContent:  desktopCollapsed ? 'center' : 'flex-start',
-                  px:              desktopCollapsed ? 1 : 2,
+                  px:              2,
                 }}
               >
-                <ListItemIcon
-                  sx={{ minWidth: desktopCollapsed ? 'unset' : 36, justifyContent: 'center' }}
-                >
+                <ListItemIcon sx={{ minWidth: 36, justifyContent: 'center' }}>
                   <img
                     src={icon}
                     alt={text}
@@ -160,10 +168,7 @@ function ResponsiveDrawer(props) {
                 </ListItemIcon>
                 <ListItemText
                   primary={text}
-                  sx={{
-                    display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
-                    m: 0,
-                  }}
+                  sx={{ m: 0 }}
                   slotProps={{
                     primary: {
                       fontSize:   '13.5px',
@@ -179,13 +184,7 @@ function ResponsiveDrawer(props) {
         </List>
 
         {/* OTHER MENU label */}
-        <List
-          sx={{
-            display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
-            pt: 1,
-            pb: 0,
-          }}
-        >
+        <List sx={{ pt: 1, pb: 0 }}>
           <ListItem
             sx={{
               color:         '#667085',
@@ -202,7 +201,6 @@ function ResponsiveDrawer(props) {
           </ListItem>
         </List>
 
-        {/* Secondary menu items */}
         <List sx={{ pt: 0, px: 1 }}>
           {secondaryItems.map(({ text, icon }) => (
             <ListItem key={text} disablePadding sx={{ mb: 0.5 }}>
@@ -213,13 +211,10 @@ function ResponsiveDrawer(props) {
                   color:           activeItem === text ? '#1565c0' : '#888888',
                   '&:hover':       { backgroundColor: '#f5f5f5' },
                   backgroundColor: 'transparent',
-                  justifyContent:  desktopCollapsed ? 'center' : 'flex-start',
-                  px:              desktopCollapsed ? 1 : 2,
+                  px:              2,
                 }}
               >
-                <ListItemIcon
-                  sx={{ minWidth: desktopCollapsed ? 'unset' : 36, justifyContent: 'center' }}
-                >
+                <ListItemIcon sx={{ minWidth: 36, justifyContent: 'center' }}>
                   <img
                     src={icon}
                     alt={text}
@@ -235,10 +230,7 @@ function ResponsiveDrawer(props) {
                 </ListItemIcon>
                 <ListItemText
                   primary={text}
-                  sx={{
-                    display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
-                    m: 0,
-                  }}
+                  sx={{ m: 0 }}
                   slotProps={{
                     primary: {
                       fontSize:   '13.5px',
@@ -252,35 +244,32 @@ function ResponsiveDrawer(props) {
             </ListItem>
           ))}
         </List>
-
       </Box>
 
-      {/* ── ③ Logout — pinned at the very bottom ── */}
+      {/* ── ③ Logout — also hidden when collapsed on desktop ── */}
       <Box
         sx={{
           flexShrink: 0,
           px:         1,
           py:         1.5,
           borderTop:  '1px solid #eceff5',
+          // Hide logout section on desktop when collapsed
+          display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
         }}
       >
         <ListItemButton
           onClick={handleLogout}
           sx={{
-            borderRadius:   '8px',
-            lineHeight:     '120%',
-            fontWeight:     500,
-            fontSize:       '14px',
-            fontFamily:     'Montserrat',
-            color:          '#F04A4A',
-            justifyContent: desktopCollapsed ? 'center' : 'flex-start',
-            px:             desktopCollapsed ? 1 : 2,
-            '&:hover':      { backgroundColor: '#fff4f4' },
+            borderRadius: '8px',
+            fontWeight:   500,
+            fontSize:     '14px',
+            fontFamily:   'Montserrat',
+            color:        '#F04A4A',
+            px:           2,
+            '&:hover':    { backgroundColor: '#fff4f4' },
           }}
         >
-          <ListItemIcon
-            sx={{ minWidth: desktopCollapsed ? 'unset' : 36, justifyContent: 'center' }}
-          >
+          <ListItemIcon sx={{ minWidth: 36, justifyContent: 'center' }}>
             <img
               src="/Images/Drawer/logout.svg"
               alt="Logout"
@@ -291,10 +280,7 @@ function ResponsiveDrawer(props) {
           </ListItemIcon>
           <ListItemText
             primary="Logout"
-            sx={{
-              display: { xs: 'block', sm: desktopCollapsed ? 'none' : 'block' },
-              m: 0,
-            }}
+            sx={{ m: 0 }}
             slotProps={{
               primary: {
                 fontSize:   '13.5px',
@@ -306,7 +292,6 @@ function ResponsiveDrawer(props) {
           />
         </ListItemButton>
       </Box>
-
     </Box>
   );
 
@@ -320,8 +305,14 @@ function ResponsiveDrawer(props) {
       <AppBar
         position="fixed"
         sx={{
-          width:           { sm: `calc(100% - ${desktopCollapsed ? collapsedDrawerWidth : drawerWidth}px)` },
-          ml:              { sm: `${desktopCollapsed ? collapsedDrawerWidth : drawerWidth}px` },
+          width: {
+            xs: '100%',
+            sm: `calc(100% - ${collapsedDrawerWidth}px)`,
+          },
+          ml: {
+            xs: 0,
+            sm: `${collapsedDrawerWidth}px`,
+          },
           backgroundColor: '#ffffff',
           color:           '#242838',
           boxShadow:       'none',
@@ -333,47 +324,85 @@ function ResponsiveDrawer(props) {
           sx={{
             justifyContent: 'space-between',
             minHeight:      '70px !important',
-            px:             { xs: 1.5, sm: 2.5 },
+            // Tighter padding on 700–850px range (md breakpoint = 900 in MUI,
+            // so we use a custom value via sx responsive array)
+            px: { xs: 1.5, sm: 2, md: 2.5 },
+            gap: 1,
           }}
         >
-          {/* Left: mobile hamburger + welcome text */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {/* ── Left: mobile arrow toggle + welcome text ── */}
+          <Box
+            sx={{
+              display:    'flex',
+              alignItems: 'center',
+              gap:        { xs: 0.5, sm: 1 },
+              minWidth:   0,
+              flex:       '1 1 auto',
+              overflow:   'hidden',
+            }}
+          >
+            {/* Mobile-only arrow toggle */}
             <IconButton
               color="inherit"
-              aria-label="open drawer"
+              aria-label={mobileOpen ? 'close drawer' : 'open drawer'}
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 1, display: { sm: 'none' } }}
-            >
-              <img
-                src={mobileOpen ? '/Images/Drawer/arrow-left.svg' : '/Images/Drawer/arrow-right.svg'}
-                alt={mobileOpen ? 'close sidebar' : 'open sidebar'}
-                width={30}
-                height={30}
-              />
-            </IconButton>
-            <div
-              style={{
-                fontSize:   '18px',
-                fontWeight: 700,
-                color:      '#242838',
-                lineHeight: 1.1,
+              sx={{
+                display:    { xs: 'flex', sm: 'none' },
+                flexShrink: 0,
+                p:          0.5,
               }}
             >
-              Welcome Back Jake! 👋
-            </div>
+              <img
+                src={mobileOpen
+                  ? '/Images/Drawer/arrow-left.svg'
+                  : '/Images/Drawer/arrow-right.svg'}
+                alt={mobileOpen ? 'close sidebar' : 'open sidebar'}
+                width={28}
+                height={28}
+              />
+            </IconButton>
+
+            {/* Welcome text — scales down on 700–850px screens */}
+            <Box sx={{ overflow: 'hidden', minWidth: 0 }}>
+              <Box
+                component="span"
+                sx={{
+                  // xs: 13px, sm (600–850px): 15px, md (900px+): 18px
+                  fontSize:     { xs: '13px', sm: '15px', md: '18px' },
+                  fontWeight:   700,
+                  color:        '#242838',
+                  lineHeight:   1.2,
+                  whiteSpace:   'nowrap',
+                  overflow:     'hidden',
+                  textOverflow: 'ellipsis',
+                  display:      'block',
+                }}
+              >
+                Welcome Back Jake! 👋
+              </Box>
+            </Box>
           </Box>
 
-          {/* Right: icon buttons + logout button */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {/* ── Right: icon buttons + logout button ── */}
+          <Box
+            sx={{
+              display:    'flex',
+              alignItems: 'center',
+              // Tighter gap on 700–850px
+              gap:        { xs: 0.25, sm: 0.5, md: 1 },
+              flexShrink: 0,
+            }}
+          >
             {toolbarIcons.map((icon) => (
               <IconButton
                 key={icon.alt}
                 color="inherit"
                 aria-label={icon.alt}
                 sx={{
-                  width:     '40px',
-                  height:    '40px',
+                  // Slightly smaller hit area on 700–850px
+                  width:     { xs: '32px', sm: '34px', md: '40px' },
+                  height:    { xs: '32px', sm: '34px', md: '40px' },
                   padding:   0,
                   '&:hover': { backgroundColor: '#f4f6fb' },
                 }}
@@ -382,10 +411,10 @@ function ResponsiveDrawer(props) {
                   src={icon.src}
                   alt={icon.alt}
                   style={{
-                    width:      '24px',
-                    height:     '24px',
-                    objectFit:  'contain',
-                    display:    'block',
+                    width:     '20px',
+                    height:    '20px',
+                    objectFit: 'contain',
+                    display:   'block',
                   }}
                 />
               </IconButton>
@@ -402,10 +431,12 @@ function ResponsiveDrawer(props) {
                 borderRadius:    '8px',
                 backgroundColor: '#0F68FF',
                 lineHeight:      '130%',
-                fontSize:        '12px',
-                fontWeight:      600,
-                padding:         '8px 40px',
-                minWidth:        '140px',
+                // Font + padding scale: xs → sm (700–850px) → md (850px+)
+                fontSize:  { xs: '11px', sm: '11px', md: '12px' },
+                fontWeight: 600,
+                padding:   { xs: '6px 12px', sm: '7px 18px', md: '8px 40px' },
+                minWidth:  { xs: 'unset', sm: 'unset', md: '140px' },
+                whiteSpace: 'nowrap',
                 '&:hover': {
                   color:           '#0F68FF',
                   borderColor:     '#FFFFFF',
@@ -423,13 +454,13 @@ function ResponsiveDrawer(props) {
       <Box
         component="nav"
         sx={{
-          width:      { sm: desktopCollapsed ? collapsedDrawerWidth : drawerWidth },
+          width:      { sm: collapsedDrawerWidth },
           flexShrink: { sm: 0 },
           transition: 'width 0.25s ease',
         }}
         aria-label="sidebar navigation"
       >
-        {/* Mobile drawer */}
+        {/* Mobile drawer — always full width, shows full menu */}
         <Drawer
           container={container}
           variant="temporary"
@@ -444,6 +475,14 @@ function ResponsiveDrawer(props) {
             },
           }}
           slotProps={{ root: { keepMounted: true } }}
+          ModalProps={{
+            BackdropProps: {
+              sx: {
+                backdropFilter: 'blur(4px)',
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+              },
+            },
+          }}
         >
           {drawer}
         </Drawer>
@@ -459,6 +498,8 @@ function ResponsiveDrawer(props) {
               transition: 'width 0.25s ease',
               overflowX:  'hidden',
               height:     '100%',
+              zIndex:     (theme) => theme.zIndex.drawer + 2,
+              boxShadow:  desktopCollapsed ? 'none' : '4px 0 15px rgba(0,0,0,0.08)',
             },
           }}
           open
